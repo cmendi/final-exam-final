@@ -10,7 +10,7 @@ const create = (newBook: Book) => Query("INSERT INTO Books SET ?", [newBook]);
 //update one
 const update = (updatedBook: Book, id: number) => Query("UPDATE Books SET ? WHERE id=?", [updatedBook, id]);
 //delete one
-const destroy = (id: number) => Query("DELETE * FROM Books WHERE id=?", [id]);
+const destroy = (id: number) => Query("DELETE FROM Books WHERE id=?", [id]);
 // export all functions
 
 export default {
