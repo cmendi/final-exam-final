@@ -18,7 +18,7 @@ booksRouter.get("/", async (req, res) => {
 booksRouter.get("/:id", async (req, res) => {
 	const id = parseInt(req.params.id);
 	try {
-		const results = db.books.getOne(id);
+		const [results] = await db.books.getOne(id);
 		res.json(results);
 	} catch (error) {
 		console.log(error);
