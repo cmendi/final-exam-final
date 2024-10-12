@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { POST, tokenKey } from "../services/fetcher";
+import { useNavigate } from "react-router-dom";
 
 const LoginReg = () => {
+	const nav = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -9,12 +11,15 @@ const LoginReg = () => {
 		e.preventDefault();
 		POST("/auth/login", { email, password }).then((data) => {
 			localStorage.setItem(tokenKey, data.token);
+			alert("You are logged in!");
+			nav("/");
 		});
 	};
 	const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
 		POST("/auth/register", { email, password }).then((data) => {
 			localStorage.setItem(tokenKey, data.token);
+			alert("You are now registered!");
+			nav("/login");
 		});
 	};
 
