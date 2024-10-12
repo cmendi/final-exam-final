@@ -17,7 +17,7 @@ loginRouter.post("/", async (req, res) => {
 		const token = jwt.sign({ id: userFound, email: userFound.email }, config.jwt.secret, { expiresIn: config.jwt.expiration });
 		res.json({ token, message: "You are now logged in!" });
 	} catch (error) {
-		res.status(400).json({ message: "Could not login" });
+		res.status(500).json({ message: "Could not login" });
 	}
 });
 

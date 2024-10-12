@@ -13,10 +13,10 @@ registerRouter.post("/", async (req, res) => {
 		newUser.password = generateHash(newUser.password);
 		const results = await db.users.insert(newUser);
 		const token = jwt.sign({ id: results.insertId, email: newUser.email }, config.jwt.secret, { expiresIn: config.jwt.expiration });
-		res.json(token);
+		res.json({ token });
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ message: "Cannot register at this time" });
+		res.status(500).json({ message: "Cannot register at this time" });
 	}
 });
 

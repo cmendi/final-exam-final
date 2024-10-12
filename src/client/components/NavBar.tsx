@@ -1,7 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { tokenKey } from "../services/fetcher";
 
 const NavBar = () => {
+	const nav = useNavigate();
+	const handleLogout = () => {
+		localStorage.removeItem(tokenKey);
+		alert("You are logged out!");
+		nav("/login");
+	};
 	return (
 		<>
 			<div>
@@ -17,9 +24,9 @@ const NavBar = () => {
 				<Link className="p-3" to={"/login"}>
 					Register/Login
 				</Link>
-				<Link className="p-3" to={"/"}>
+				<button className="p-3 btn btn-primary" onClick={handleLogout}>
 					Logout
-				</Link>
+				</button>
 			</div>
 		</>
 	);

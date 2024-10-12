@@ -2,6 +2,7 @@
 import express from "express";
 import db from "../../db";
 import { Book } from "../../types";
+import tokenCheck from "../../middlewares/tokenCheck";
 //connect express
 const booksRouter = express.Router();
 //get all
@@ -26,7 +27,7 @@ booksRouter.get("/:id", async (req, res) => {
 	}
 });
 // create
-booksRouter.post("/", async (req, res) => {
+booksRouter.post("/", tokenCheck, async (req, res) => {
 	const { title, author, price, category_id } = req.body;
 	try {
 		const newBook: Book = {
@@ -45,7 +46,7 @@ booksRouter.post("/", async (req, res) => {
 	}
 });
 //update
-booksRouter.put("/:id", async (req, res) => {
+booksRouter.put("/:id", tokenCheck, async (req, res) => {
 	const { title, author, price, category_id } = req.body;
 	const id = parseInt(req.params.id);
 	try {
@@ -64,7 +65,7 @@ booksRouter.put("/:id", async (req, res) => {
 	}
 });
 //delete
-booksRouter.delete("/:id", async (req, res) => {
+booksRouter.delete("/:id", tokenCheck, async (req, res) => {
 	const id = parseInt(req.params.id);
 	try {
 		await db.books.destroy(id);
